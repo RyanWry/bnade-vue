@@ -9,6 +9,7 @@
                 <input type="text" placeholder="搜索物品" v-model="term" debounce="500">
                 <i style="margin-left: -20px" class="fa fa-times " aria-hidden="true"
                    v-show="term" @click="term='',item={bonusList: []}"></i>
+
             </div>
         </div>
 
@@ -42,7 +43,8 @@
         </div>
 
         <realms :realm-show.sync="realmShow" :realm.sync="realm" :item="item"></realms>
-        <result :search-result="searchResult" :result-show="resultShow" :search-item="item" :realm-id="realm.id"></result>
+        <result :search-result="searchResult" :result-show="resultShow" :search-item="item"
+                :realm-id="realm.id"></result>
 
         <div class="modal" v-if="item.bonusList.length>0" flex="main:center cross:center">
             <div class="modal-content">
