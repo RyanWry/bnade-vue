@@ -9,6 +9,7 @@
                 <i class="fa fa-bar-chart " aria-hidden="true"></i><span>图表</span>
             </div>
         </div>
+
         <div class="search-list">
             <div v-for="item in searchResult" class="search-item">
                 <div style="font-weight: bold">{{item.realmId | realmName}}</div>
@@ -26,9 +27,11 @@
                 </div>
             </div>
         </div>
+
+
         <div class="search-chart" v-show="chartShow" flex="main:center cross:center" @click="hideChart($event)">
             <div class="chart-content" style="background: white">
-                <canvas id="myChart" width="400" height="400"></canvas>
+                <canvas id="myChart" width="400" height="400" ></canvas>
             </div>
         </div>
 
@@ -62,9 +65,9 @@
             resultShow: function (val) {
                 if (val === true) {
                     this.$http.get(
-                            (process.env.NODE_ENV === 'production')
+                            (process.env.NODE_ENV !== 'development'
                                     ? ''
-                                    : 'http://localhost:5000'
+                                    : 'http://localhost:5000')
                             + '/wow/item/info/' + this.searchItem.id).then(response => {
                         var itemInfo = document.getElementById('itemInfo');
                         if (itemInfo)  itemInfo.innerHTML = response.data
@@ -96,40 +99,42 @@
                         }
                     })
                 }
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: new Array(prices.length),
-                        datasets: [
-                            {
-                                type: 'line',
-                                label: '# 价格',
-                                data: prices,
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderColor: 'rgba(255,99,132,1)',
-                                borderWidth: 1,
-                                yAxisID: '1',
-                                pointRadius: 0,
-                            },
-                            {
-                                label: '# 数量',
-                                type: _this.realmId === 0 ? 'bar' : 'line',
-                                data: numbers,
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1,
-                                pointRadius: 0,
-                                yAxisID: '2',
-                                fill: false
+                setTimeout(()=> {
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: new Array(prices.length),
+                            datasets: [
+                                {
+                                    type: 'line',
+                                    label: '# 价格',
+                                    data: prices,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderColor: 'rgba(255,99,132,1)',
+                                    borderWidth: 1,
+                                    yAxisID: '1',
+                                    pointRadius: 0,
+                                },
+                                {
+                                    label: '# 数量',
+                                    type: _this.realmId === 0 ? 'bar' : 'line',
+                                    data: numbers,
+                                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    borderWidth: 1,
+                                    pointRadius: 0,
+                                    yAxisID: '2',
+                                    fill: false
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{id: '1'}, {id: '2', position: 'right'}]
                             }
-                        ]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{id: '1'}, {id: '2', position: 'right'}]
                         }
-                    }
-                });
+                    });
+                })
             },
             hideChart(event){
                 if (event.target.id !== 'myChart') {

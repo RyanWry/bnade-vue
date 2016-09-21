@@ -3,7 +3,8 @@
         <div class="search-top" flex="dir:left box:last">
             <div flex="main:center cross:center">
                 <input type="text" v-model="name" placeholder="搜索服务器">
-                <i style="display:inline-block;position: absolute;right: 60px" class="fa fa-times " aria-hidden="true"
+
+                <i style="margin-left: -20px" class="fa fa-times " aria-hidden="true"
                    v-show="name" @click="name=''"></i>
             </div>
             <div flex="cross:center" @click="realmShow=false" style="padding-right: 10px">取消</div>

@@ -20004,7 +20004,7 @@
 	//             </div>
 	//             <div flex="main:center cross:center">
 	//                 <input type="text" placeholder="搜索物品" v-model="term" debounce="500">
-	//                 <i style="position: absolute;right: 20px" class="fa fa-times " aria-hidden="true"
+	//                 <i style="margin-left: -20px" class="fa fa-times " aria-hidden="true"
 	//                    v-show="term" @click="term='',item={bonusList: []}"></i>
 	//             </div>
 	//         </div>
@@ -22034,7 +22034,8 @@
 	//         <div class="search-top" flex="dir:left box:last">
 	//             <div flex="main:center cross:center">
 	//                 <input type="text" v-model="name" placeholder="搜索服务器">
-	//                 <i style="display:inline-block;position: absolute;right: 60px" class="fa fa-times " aria-hidden="true"
+	//
+	//                 <i style="margin-left: -20px" class="fa fa-times " aria-hidden="true"
 	//                    v-show="name" @click="name=''"></i>
 	//             </div>
 	//             <div flex="cross:center" @click="realmShow=false" style="padding-right: 10px">取消</div>
@@ -22057,7 +22058,7 @@
 /* 90 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"realm\" v-show=\"realmShow\" _v-795b0c62=\"\">\n    <div class=\"search-top\" flex=\"dir:left box:last\" _v-795b0c62=\"\">\n        <div flex=\"main:center cross:center\" _v-795b0c62=\"\">\n            <input type=\"text\" v-model=\"name\" placeholder=\"搜索服务器\" _v-795b0c62=\"\">\n            <i style=\"display:inline-block;position: absolute;right: 60px\" class=\"fa fa-times \" aria-hidden=\"true\" v-show=\"name\" @click=\"name=''\" _v-795b0c62=\"\"></i>\n        </div>\n        <div flex=\"cross:center\" @click=\"realmShow=false\" style=\"padding-right: 10px\" _v-795b0c62=\"\">取消</div>\n    </div>\n    <div class=\"realm-content\" _v-795b0c62=\"\">\n        <div class=\"realm-list\" _v-795b0c62=\"\">\n            <div v-for=\"item in realms | filterBy name in  'connected' \" class=\"realm-item\" @click=\"selectRealm(item)\" _v-795b0c62=\"\">\n                {{item.connected}}\n            </div>\n        </div>\n    </div>\n\n</div>\n";
+	module.exports = "\n<div class=\"realm\" v-show=\"realmShow\" _v-795b0c62=\"\">\n    <div class=\"search-top\" flex=\"dir:left box:last\" _v-795b0c62=\"\">\n        <div flex=\"main:center cross:center\" _v-795b0c62=\"\">\n            <input type=\"text\" v-model=\"name\" placeholder=\"搜索服务器\" _v-795b0c62=\"\">\n\n            <i style=\"margin-left: -20px\" class=\"fa fa-times \" aria-hidden=\"true\" v-show=\"name\" @click=\"name=''\" _v-795b0c62=\"\"></i>\n        </div>\n        <div flex=\"cross:center\" @click=\"realmShow=false\" style=\"padding-right: 10px\" _v-795b0c62=\"\">取消</div>\n    </div>\n    <div class=\"realm-content\" _v-795b0c62=\"\">\n        <div class=\"realm-list\" _v-795b0c62=\"\">\n            <div v-for=\"item in realms | filterBy name in  'connected' \" class=\"realm-item\" @click=\"selectRealm(item)\" _v-795b0c62=\"\">\n                {{item.connected}}\n            </div>\n        </div>\n    </div>\n\n</div>\n";
 
 /***/ },
 /* 91 */
@@ -22164,7 +22165,7 @@
 	    watch: {
 	        resultShow: function resultShow(val) {
 	            if (val === true) {
-	                this.$http.get(process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000' + '/wow/item/info/' + this.searchItem.id).then(function (response) {
+	                this.$http.get((process.env.NODE_ENV !== 'development' ? '' : 'http://localhost:5000') + '/wow/item/info/' + this.searchItem.id).then(function (response) {
 	                    var itemInfo = document.getElementById('itemInfo');
 	                    if (itemInfo) itemInfo.innerHTML = response.data;
 	                });
@@ -22197,36 +22198,38 @@
 	                    }
 	                });
 	            }
-	            new _chart2.default(ctx, {
-	                type: 'bar',
-	                data: {
-	                    labels: new Array(prices.length),
-	                    datasets: [{
-	                        type: 'line',
-	                        label: '# 价格',
-	                        data: prices,
-	                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-	                        borderColor: 'rgba(255,99,132,1)',
-	                        borderWidth: 1,
-	                        yAxisID: '1',
-	                        pointRadius: 0
-	                    }, {
-	                        label: '# 数量',
-	                        type: _this.realmId === 0 ? 'bar' : 'line',
-	                        data: numbers,
-	                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-	                        borderColor: 'rgba(54, 162, 235, 1)',
-	                        borderWidth: 1,
-	                        pointRadius: 0,
-	                        yAxisID: '2',
-	                        fill: false
-	                    }]
-	                },
-	                options: {
-	                    scales: {
-	                        yAxes: [{ id: '1' }, { id: '2', position: 'right' }]
+	            setTimeout(function () {
+	                new _chart2.default(ctx, {
+	                    type: 'bar',
+	                    data: {
+	                        labels: new Array(prices.length),
+	                        datasets: [{
+	                            type: 'line',
+	                            label: '# 价格',
+	                            data: prices,
+	                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+	                            borderColor: 'rgba(255,99,132,1)',
+	                            borderWidth: 1,
+	                            yAxisID: '1',
+	                            pointRadius: 0
+	                        }, {
+	                            label: '# 数量',
+	                            type: _this.realmId === 0 ? 'bar' : 'line',
+	                            data: numbers,
+	                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+	                            borderColor: 'rgba(54, 162, 235, 1)',
+	                            borderWidth: 1,
+	                            pointRadius: 0,
+	                            yAxisID: '2',
+	                            fill: false
+	                        }]
+	                    },
+	                    options: {
+	                        scales: {
+	                            yAxes: [{ id: '1' }, { id: '2', position: 'right' }]
+	                        }
 	                    }
-	                }
+	                });
 	            });
 	        },
 	        hideChart: function hideChart(event) {
@@ -22298,6 +22301,7 @@
 	//                 <i class="fa fa-bar-chart " aria-hidden="true"></i><span>图表</span>
 	//             </div>
 	//         </div>
+	//
 	//         <div class="search-list">
 	//             <div v-for="item in searchResult" class="search-item">
 	//                 <div style="font-weight: bold">{{item.realmId | realmName}}</div>
@@ -22315,9 +22319,11 @@
 	//                 </div>
 	//             </div>
 	//         </div>
+	//
+	//
 	//         <div class="search-chart" v-show="chartShow" flex="main:center cross:center" @click="hideChart($event)">
 	//             <div class="chart-content" style="background: white">
-	//                 <canvas id="myChart" width="400" height="400"></canvas>
+	//                 <canvas id="myChart" width="400" height="400" ></canvas>
 	//             </div>
 	//         </div>
 	//
@@ -33021,7 +33027,7 @@
 /* 138 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"search-result\" v-if=\"resultShow\">\n    <div class=\"search-info\" flex=\"box:mean\">\n        <div flex=\"main:center cross:center\" style=\"border-right: 1px solid #797979\"\n             @click=\"showInfo()\">\n            <i class=\"fa fa-info-circle\" aria-hidden=\"true\"></i><span>信息</span>\n        </div>\n        <div flex=\"main:center cross:center\" @click=\"showChart()\">\n            <i class=\"fa fa-bar-chart \" aria-hidden=\"true\"></i><span>图表</span>\n        </div>\n    </div>\n    <div class=\"search-list\">\n        <div v-for=\"item in searchResult\" class=\"search-item\">\n            <div style=\"font-weight: bold\">{{item.realmId | realmName}}</div>\n\n            <div style=\"margin-top: 10px\" flex=\"dir:left box:last\">\n                <div>\n                    <span style=\"font-size: 1.2em;color: #f05948\"> {{(item.price||item.startPrice) | priceFormat}}</span>\n                    <span style=\"font-size: 0.8em\">{{item.price==0?'(竞拍)':''}}</span>\n                </div>\n                <div flex=\"cross:center\">{{item.owner}}</div>\n            </div>\n            <div style=\"margin-top: 10px\" flex=\"dir:left box:last\">\n                <div> {{item.quantity+' | '}}{{item.timeLeft | timeLeft}}</div>\n                <div> {{item.time | dateFormat}}</div>\n            </div>\n        </div>\n    </div>\n    <div class=\"search-chart\" v-show=\"chartShow\" flex=\"main:center cross:center\" @click=\"hideChart($event)\">\n        <div class=\"chart-content\" style=\"background: white\">\n            <canvas id=\"myChart\" width=\"400\" height=\"400\"></canvas>\n        </div>\n    </div>\n\n    <div class=\"search-chart\" v-show=\"infoShow\" flex=\"main:center cross:center\" @click=\"infoShow=false\">\n        <div class=\"tooltip-content chart-content\" id=\"itemInfo\">\n        </div>\n    </div>\n\n\n</div>\n";
+	module.exports = "\n<div class=\"search-result\" v-if=\"resultShow\">\n    <div class=\"search-info\" flex=\"box:mean\">\n        <div flex=\"main:center cross:center\" style=\"border-right: 1px solid #797979\"\n             @click=\"showInfo()\">\n            <i class=\"fa fa-info-circle\" aria-hidden=\"true\"></i><span>信息</span>\n        </div>\n        <div flex=\"main:center cross:center\" @click=\"showChart()\">\n            <i class=\"fa fa-bar-chart \" aria-hidden=\"true\"></i><span>图表</span>\n        </div>\n    </div>\n\n    <div class=\"search-list\">\n        <div v-for=\"item in searchResult\" class=\"search-item\">\n            <div style=\"font-weight: bold\">{{item.realmId | realmName}}</div>\n\n            <div style=\"margin-top: 10px\" flex=\"dir:left box:last\">\n                <div>\n                    <span style=\"font-size: 1.2em;color: #f05948\"> {{(item.price||item.startPrice) | priceFormat}}</span>\n                    <span style=\"font-size: 0.8em\">{{item.price==0?'(竞拍)':''}}</span>\n                </div>\n                <div flex=\"cross:center\">{{item.owner}}</div>\n            </div>\n            <div style=\"margin-top: 10px\" flex=\"dir:left box:last\">\n                <div> {{item.quantity+' | '}}{{item.timeLeft | timeLeft}}</div>\n                <div> {{item.time | dateFormat}}</div>\n            </div>\n        </div>\n    </div>\n\n\n    <div class=\"search-chart\" v-show=\"chartShow\" flex=\"main:center cross:center\" @click=\"hideChart($event)\">\n        <div class=\"chart-content\" style=\"background: white\">\n            <canvas id=\"myChart\" width=\"400\" height=\"400\" ></canvas>\n        </div>\n    </div>\n\n    <div class=\"search-chart\" v-show=\"infoShow\" flex=\"main:center cross:center\" @click=\"infoShow=false\">\n        <div class=\"tooltip-content chart-content\" id=\"itemInfo\">\n        </div>\n    </div>\n\n\n</div>\n";
 
 /***/ },
 /* 139 */
@@ -33118,7 +33124,7 @@
 /* 140 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"page\" style=\"height: 100%;overflow: hidden\">\n\n    <div flex=\"dir:left box:first\" class=\"search-top\">\n        <div style=\"padding-left: 10px\" flex=\"cross:center\" @click=\"realmShow=true\">\n            {{realm.name}}\n        </div>\n        <div flex=\"main:center cross:center\">\n            <input type=\"text\" placeholder=\"搜索物品\" v-model=\"term\" debounce=\"500\">\n            <i style=\"position: absolute;right: 20px\" class=\"fa fa-times \" aria-hidden=\"true\"\n               v-show=\"term\" @click=\"term='',item={bonusList: []}\"></i>\n        </div>\n    </div>\n\n    <div style=\"height: 94%;overflow: scroll\">\n        <div class=\"search-hot\">\n            <div class=\"search-title\">热门搜索</div>\n            <div class=\"hot-list\">\n                <div v-for=\"item in itemHots | filterBy 1 in 'type' \" class=\"hot-item\"\n                     @click=\"getItemInfoByName(item.name)\">\n                    {{item.name}}\n                </div>\n            </div>\n        </div>\n\n        <div class=\"search-history\">\n            <div class=\"search-title\">历史搜索</div>\n            <div class=\"history-list\">\n                <div v-for=\"item in historyList\" class=\"history-item\" @click=\"getItemInfoByName(item.name)\">\n                    {{item.name}}\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"input-result\" v-show=\"termShow\">\n        <div class=\"input-list\">\n            <div v-for=\"item in data\" class=\"input-item\" @click=\"getItemInfoByName(item)\">\n                {{item}}\n            </div>\n        </div>\n    </div>\n\n    <realms :realm-show.sync=\"realmShow\" :realm.sync=\"realm\" :item=\"item\"></realms>\n    <result :search-result=\"searchResult\" :result-show=\"resultShow\" :search-item=\"item\" :realm-id=\"realm.id\"></result>\n\n    <div class=\"modal\" v-if=\"item.bonusList.length>0\" flex=\"main:center cross:center\">\n        <div class=\"modal-content\">\n            <div v-for=\"bl in item.bonusList\" class=\"modal-item\"\n                 flex=\"dir:left box:last\"\n                 @click=\"getSearchResult(item,bl),item.bonusList=[]\">\n                <div> {{item.name}}</div>\n                <div>{{bl | bonus}}</div>\n            </div>\n        </div>\n    </div>\n\n</div>\n";
+	module.exports = "\n<div class=\"page\" style=\"height: 100%;overflow: hidden\">\n\n    <div flex=\"dir:left box:first\" class=\"search-top\">\n        <div style=\"padding-left: 10px\" flex=\"cross:center\" @click=\"realmShow=true\">\n            {{realm.name}}\n        </div>\n        <div flex=\"main:center cross:center\">\n            <input type=\"text\" placeholder=\"搜索物品\" v-model=\"term\" debounce=\"500\">\n            <i style=\"margin-left: -20px\" class=\"fa fa-times \" aria-hidden=\"true\"\n               v-show=\"term\" @click=\"term='',item={bonusList: []}\"></i>\n        </div>\n    </div>\n\n    <div style=\"height: 94%;overflow: scroll\">\n        <div class=\"search-hot\">\n            <div class=\"search-title\">热门搜索</div>\n            <div class=\"hot-list\">\n                <div v-for=\"item in itemHots | filterBy 1 in 'type' \" class=\"hot-item\"\n                     @click=\"getItemInfoByName(item.name)\">\n                    {{item.name}}\n                </div>\n            </div>\n        </div>\n\n        <div class=\"search-history\">\n            <div class=\"search-title\">历史搜索</div>\n            <div class=\"history-list\">\n                <div v-for=\"item in historyList\" class=\"history-item\" @click=\"getItemInfoByName(item.name)\">\n                    {{item.name}}\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"input-result\" v-show=\"termShow\">\n        <div class=\"input-list\">\n            <div v-for=\"item in data\" class=\"input-item\" @click=\"getItemInfoByName(item)\">\n                {{item}}\n            </div>\n        </div>\n    </div>\n\n    <realms :realm-show.sync=\"realmShow\" :realm.sync=\"realm\" :item=\"item\"></realms>\n    <result :search-result=\"searchResult\" :result-show=\"resultShow\" :search-item=\"item\" :realm-id=\"realm.id\"></result>\n\n    <div class=\"modal\" v-if=\"item.bonusList.length>0\" flex=\"main:center cross:center\">\n        <div class=\"modal-content\">\n            <div v-for=\"bl in item.bonusList\" class=\"modal-item\"\n                 flex=\"dir:left box:last\"\n                 @click=\"getSearchResult(item,bl),item.bonusList=[]\">\n                <div> {{item.name}}</div>\n                <div>{{bl | bonus}}</div>\n            </div>\n        </div>\n    </div>\n\n</div>\n";
 
 /***/ }
 /******/ ]);

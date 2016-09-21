@@ -7,7 +7,7 @@
             </div>
             <div flex="main:center cross:center">
                 <input type="text" placeholder="搜索物品" v-model="term" debounce="500">
-                <i style="position: absolute;right: 20px" class="fa fa-times " aria-hidden="true"
+                <i style="margin-left: -20px" class="fa fa-times " aria-hidden="true"
                    v-show="term" @click="term='',item={bonusList: []}"></i>
             </div>
         </div>
