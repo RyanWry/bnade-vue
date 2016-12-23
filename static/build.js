@@ -20346,7 +20346,7 @@
 	/**
 	 * Created by Administrator on 2016/9/8 0008.
 	 */
-	var API_ROOT = 'http://www.bnade.com/wow/';
+	var API_ROOT = 'https://www.bnade.com/wow/';
 	
 	_vue2.default.use(_vueResource2.default);
 	

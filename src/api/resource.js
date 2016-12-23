@@ -4,7 +4,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 
-const API_ROOT = 'http://www.bnade.com/wow/';
+const API_ROOT = 'https://www.bnade.com/wow/';
 
 Vue.use(VueResource);
 
